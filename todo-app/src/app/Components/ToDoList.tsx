@@ -1,12 +1,20 @@
+"use client";
+import React from "react";
+import { FormEventHandler, useState } from "react";
 import { ITask } from "../../../types/tasks";
+import { deleteTodo, editTodo } from "../../../api";
+import Task from "./Task";
 
 interface TodoListProps {
   taskListFromAPI: ITask[];
 }
 
 const ToDoList: React.FC<TodoListProps> = ({ taskListFromAPI }) => {
-  console.log("tasks in todo list");
-  console.log(taskListFromAPI)
+  
+
+ 
+
+  
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -18,10 +26,7 @@ const ToDoList: React.FC<TodoListProps> = ({ taskListFromAPI }) => {
         </thead>
         <tbody>
           {taskListFromAPI.map((singleTask, index) => (
-            <tr key={index}>
-              <td>{singleTask.task}</td>
-              <td></td>
-            </tr>
+            <Task key={singleTask.id} task={singleTask}/>
           ))}
         </tbody>
       </table>

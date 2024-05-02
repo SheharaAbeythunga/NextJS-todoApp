@@ -23,3 +23,22 @@ export const addTodo=async(todo:ITask):Promise<ITask>=>{
     return newTodo;
 }
 
+export const editTodo=async(todo:ITask):Promise<ITask>=>{
+    const res=await fetch(`${baseUrl}/tasksList/${todo.id}`,{
+        method:'PUT',
+        headers:{
+            'Content-Type':'appliaction/json,'
+        },
+        body:JSON.stringify(todo)
+    })
+    const updatedTodo=await res.json();
+    return updatedTodo;
+}
+
+export const deleteTodo=async(id:string):Promise<void>=>{
+    await fetch(`${baseUrl}/tasksList/${id}`,{
+        method:'DELETE',
+    })
+    
+}
+
