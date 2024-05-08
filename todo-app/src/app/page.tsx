@@ -1,20 +1,28 @@
+"use client";
+import { useEffect, useState } from "react";
 import { getAllTodos } from "../../api";
-import AddTask from "./Components/AddTask";
-import ToDoList from "./Components/ToDoList";
 
-export default async function Page() {
-  const taskListFromAPI = await getAllTodos();
-  console.log("tasks in page");
-  console.log(taskListFromAPI);
+import ToDoColumn from "./Components/ToDoColumn";
+import InProgressColumn from "./Components/InProgressColumn";
+import CompletedColumn from "./Components/CompletedColumn";
+import { DragDropContext } from "react-beautiful-dnd";
 
-
+const Page = () => {
   return (
-    <div className="max-w-4xl  mx-auto mt-4">
-      <div className="text-center flex flex-col gap-4">
-        <h1 className="text-2xl font-bold">ToDo List App</h1>
-        <AddTask/>
+    <DragDropContext>
+      <div className="flex justify-between">
+        <div className="w-1/3 p-4 border">
+          <ToDoColumn />
+        </div>
+        <div className="w-1/3 p-4 border">
+          <InProgressColumn />
+        </div>
+        <div className="w-1/3 p-4 border">
+          <CompletedColumn />
+        </div>
       </div>
-      <ToDoList taskListFromAPI={taskListFromAPI}/>
-    </div>
+    </DragDropContext>
   );
-}
+};
+
+export default Page;

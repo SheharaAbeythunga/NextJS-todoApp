@@ -6,15 +6,11 @@ import { deleteTodo, editTodo } from "../../../api";
 import Task from "./Task";
 
 interface TodoListProps {
-  taskListFromAPI: ITask[];
+  taskListFromLocalStorage: ITask[];
 }
 
-const ToDoList: React.FC<TodoListProps> = ({ taskListFromAPI }) => {
-  
-
- 
-
-  
+const ToDoList: React.FC<TodoListProps> = ({ taskListFromLocalStorage }) => {
+    
   return (
     <div className="overflow-x-auto">
       <table className="table">
@@ -25,7 +21,7 @@ const ToDoList: React.FC<TodoListProps> = ({ taskListFromAPI }) => {
           </tr>
         </thead>
         <tbody>
-          {taskListFromAPI.map((singleTask, index) => (
+          {taskListFromLocalStorage.map((singleTask, index) => (
             <Task key={singleTask.id} task={singleTask}/>
           ))}
         </tbody>
