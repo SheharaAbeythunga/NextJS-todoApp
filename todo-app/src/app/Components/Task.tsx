@@ -13,7 +13,7 @@ const Task:React.FC<TaskProps> = ({task}) => {
     const [openEditModal, setOpenEditModal] = useState<boolean>(false);
 
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false);
-  const [taskToEdit, setTaskToEdit] = useState<string>(task.task);
+  const [taskToEdit, setTaskToEdit] = useState<string>(task.task.taskName);
   const [clickedTaskId, setClickedTaskId] = useState<string>("");
 
   const router = useRouter();
@@ -26,19 +26,19 @@ const handleDeleteTask = async (id: string) => {
   
     const handleSubmitEditTodo: FormEventHandler<HTMLFormElement> = async (e) => {
         e.preventDefault();
-        await editTodo({
-          id: clickedTaskId,
-          task: taskToEdit,
-        });
+        // await editTodo({
+        //   id: clickedTaskId,
+        //   task: taskToEdit,
+        // });
         setTaskToEdit("");
         setOpenEditModal(false);
         router.refresh();
       };
       
   return (
-   
-      <tr key={task.id}>
-        <td className="w-full">{task.task}</td>
+    <>
+       {/* <tr key={task.id}> */}
+        <td className="w-full">{task.task.taskName}</td>
         <td className="flex gap-5">
           <FiEdit
             onClick={() => {
@@ -112,8 +112,8 @@ const handleDeleteTask = async (id: string) => {
             </div>
           </dialog>
         </td>
-      </tr>
-    
+       {/* </tr> */}
+    </>
   );
 };
 

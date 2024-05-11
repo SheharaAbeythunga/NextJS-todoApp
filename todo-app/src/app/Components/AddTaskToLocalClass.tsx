@@ -8,14 +8,18 @@ interface AddTaskToLocalClassProps {
   setTaskList: Dispatch<SetStateAction<ITask[]>>;
 }
 
-const AddTaskToLocalClass: React.FC<AddTaskToLocalClassProps>  = ({ setTaskList }) => {
+const AddTaskToLocalClass: React.FC<AddTaskToLocalClassProps> = ({
+  setTaskList,
+}) => {
   const [openModal, setOpenModal] = useState(false);
   const [newTaskValue, setNewTaskValue] = useState("");
 
   // Function to add a new task to Local Storage and update state
   const addTaskToLocal = (task: ITask) => {
     const existingTasksJSON = localStorage.getItem("tasks");
-    const existingTasks = existingTasksJSON ? JSON.parse(existingTasksJSON) : [];
+    const existingTasks = existingTasksJSON
+      ? JSON.parse(existingTasksJSON)
+      : [];
     const updatedTasks = [...existingTasks, task];
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     setTaskList(updatedTasks); // Update state with the new task list
@@ -25,8 +29,12 @@ const AddTaskToLocalClass: React.FC<AddTaskToLocalClassProps>  = ({ setTaskList 
     e.preventDefault();
 
     const newTask = {
-      id: uuidv4(),
-      task: newTaskValue,
+      id: uuidv4(), // Generate a UUID for the task id
+      type: "todo", // Specify the type of the task if needed
+      task: {
+        id: uuidv4(), // Generate a UUID for the nested task id
+        taskName: newTaskValue, // Assign the task name from your variable
+      },
     };
 
     addTaskToLocal(newTask);
@@ -37,7 +45,10 @@ const AddTaskToLocalClass: React.FC<AddTaskToLocalClassProps>  = ({ setTaskList 
 
   return (
     <div>
-      <button onClick={() => setOpenModal(true)} className="btn btn-primary w-full">
+      <button
+        onClick={() => setOpenModal(true)}
+        className="btn btn-primary w-full"
+      >
         Add Task <AiOutlinePlus size={18} />
       </button>
       <Modal openModal={openModal} setOpenModal={setOpenModal}>

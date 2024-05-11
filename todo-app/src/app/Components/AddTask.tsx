@@ -23,8 +23,11 @@ const AddTask = () => {
     
     await addTodo({
         id:uuidv4(),
-        task:newTaskValue,
-    });
+        type:"todo",
+        task:{
+          id:uuidv4(),
+          taskName:newTaskValue
+  }});
     setNewTaskValue("");
     setOpenModal(false);
     router.refresh();

@@ -1,25 +1,51 @@
 "use client";
-import { useEffect, useState } from "react";
-import { getAllTodos } from "../../api";
-
+import React from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import ToDoColumn from "./Components/ToDoColumn";
 import InProgressColumn from "./Components/InProgressColumn";
 import CompletedColumn from "./Components/CompletedColumn";
-import { DragDropContext } from "react-beautiful-dnd";
 
 const Page = () => {
   return (
-    <DragDropContext>
+    <DragDropContext onDragEnd={() => {}}>
       <div className="flex justify-between">
-        <div className="w-1/3 p-4 border">
-          <ToDoColumn />
-        </div>
-        <div className="w-1/3 p-4 border">
-          <InProgressColumn />
-        </div>
-        <div className="w-1/3 p-4 border">
-          <CompletedColumn />
-        </div>
+        <Droppable droppableId="idtodo">
+          {(provided) => (
+            <div
+              className="w-1/3 p-4 border"
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              
+            >
+              <ToDoColumn />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <Droppable droppableId="inProgress">
+          {(provided) => (
+            <div
+              className="w-1/3 p-4 border"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              <InProgressColumn />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+        <Droppable droppableId="completed">
+          {(provided) => (
+            <div
+              className="w-1/3 p-4 border"
+              ref={provided.innerRef}
+              {...provided.droppableProps}
+            >
+              <CompletedColumn />
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
     </DragDropContext>
   );
